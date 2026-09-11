@@ -6,7 +6,33 @@ on:
   workflow_dispatch:
 
 jobs:
+  provision:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure Cloudflare Pages project exists
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -o "$RUNNER_TEMP/project.json" -w "%{http_code}" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/sprout-lane")
+          if [ "$code" = "200" ]; then
+            echo "Pages project already exists"
+            exit 0
+          fi
+          if [ "$code" != "404" ]; then
+            cat "$RUNNER_TEMP/project.json"
+            exit 1
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects" \
+            --data '{"name":"sprout-lane","production_branch":"main"}'
   deploy:
+    needs: provision
     permissions:
       contents: write
     uses: quiet-build/.github/.github/workflows/deploy-arcade-component.yml@8286c17efa989220f88548ffb901f742e3302f3e

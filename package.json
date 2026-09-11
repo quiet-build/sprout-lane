@@ -1,0 +1,23 @@
+{
+  "name": "sprout-lane",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test:rules": "node --test tests/rules.test.mjs tests/session.test.mjs",
+    "test:component": "pnpm build && playwright test --config playwright.component.config.js"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0",
+    "xstate": "^5.32.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "vite": "^7.3.1",
+    "wrangler": "4.129.0"
+  }
+}

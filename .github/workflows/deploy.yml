@@ -1,0 +1,20 @@
+name: Deploy arcade component
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    permissions:
+      contents: write
+    uses: quiet-build/.github/.github/workflows/deploy-arcade-component.yml@8286c17efa989220f88548ffb901f742e3302f3e
+    with:
+      support-sha: 8286c17efa989220f88548ffb901f742e3302f3e
+      cloudflare-project-name: sprout-lane
+      prebuild-command: "pnpm test:rules && node --test tests/redirect.test.mjs"
+      postbuild-command: "pnpm exec playwright install --with-deps webkit && pnpm exec playwright test --config playwright.component.config.js && pnpm exec playwright test --config playwright.config.js"
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

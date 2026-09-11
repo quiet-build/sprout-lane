@@ -1,0 +1,39 @@
+<div class="app" data-phase="play" data-plants="0" data-walkers="0" data-paused="0">
+  <header class="hud" aria-label="Garden status">
+    <div class="brand">
+      <h1>Sprout Lane</h1>
+      <p>Plant the rows. Collect sun.</p>
+    </div>
+    <div class="meters">
+      <div class="meter sun"><span>Sun</span><strong id="sunText">200</strong></div>
+      <div class="meter score"><span>Score</span><strong id="scoreText">0</strong></div>
+      <div class="meter wave"><span>Wave</span><strong id="waveText">1 / 8</strong></div>
+    </div>
+    <div class="hud-actions">
+      <button id="speedButton" type="button">Speed x1</button>
+      <button id="pauseButton" type="button">Pause</button>
+      <button id="restartButton" type="button">Restart</button>
+    </div>
+  </header>
+
+  <div class="stage">
+    <div id="game" aria-label="Sprout Lane battlefield"></div>
+    <section class="sheet hidden" id="pauseSheet" aria-labelledby="pauseTitle">
+      <p class="kicker">Paused</p>
+      <h2 id="pauseTitle">Bugs are frozen.</h2>
+      <p>Resume to keep planting. Restart clears the lawn and leftover timers.</p>
+      <button id="resumeButton" type="button">Resume</button>
+    </section>
+    <section class="sheet hidden" id="endSheet" aria-labelledby="endTitle">
+      <p class="kicker" id="endKicker">Garden closed</p>
+      <h2 id="endTitle">The rows held.</h2>
+      <p id="endBody"></p>
+      <button id="againButton" type="button">Play again</button>
+    </section>
+  </div>
+
+  <div class="dock">
+    <p class="goal-line" id="message">Pick a sprout, then tap an empty plot. Catch falling sun.</p>
+    <div class="build-menu" id="cards" role="group" aria-label="Sprouts"></div>
+  </div>
+</div>

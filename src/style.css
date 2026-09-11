@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light;
+  font-family: "Nunito", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --ink: #2f3d28;
+  --muted: #6a7a58;
+  --paper: #f4ffe8;
+  --panel: rgba(244, 255, 232, 0.92);
+  --line: #cfe6a8;
+  --leaf: #4f9e3a;
+  --sun: #f0b429;
+  --shadow: 0 16px 36px rgba(80, 110, 40, 0.16);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 214, 102, 0.4), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(168, 230, 160, 0.45), transparent 26%),
+    #eef8dc;
+}
+
+.app {
+  width: min(1080px, calc(100% - 20px));
+  margin: 0 auto;
+  padding: 8px 0 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.brand h1 { margin: 0; font-size: clamp(1.05rem, 2.4vw, 1.4rem); letter-spacing: -0.04em; color: #3d7a28; }
+.brand p { margin: 0; color: var(--muted); font-weight: 800; font-size: 0.82rem; }
+
+.meters { display: flex; flex: 1; gap: 8px; min-width: 0; }
+.meter {
+  flex: 1; min-width: 0; padding: 6px 10px; border-radius: 16px;
+  background: #fff; border: 1px solid #dcecba;
+}
+.meter span { display: block; color: var(--muted); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.meter strong { font-size: 1.15rem; }
+.meter.sun { background: #fff6d8; }
+.meter.score { background: #f3ffe8; }
+.meter.wave { background: #eef8ff; }
+
+.hud-actions { display: flex; gap: 8px; }
+button { font: inherit; }
+#pauseButton, #restartButton, #resumeButton, #againButton, #speedButton {
+  min-height: 44px; border: 0; border-radius: 16px; padding: 8px 14px;
+  color: #fffaf4; font-weight: 900; cursor: pointer;
+}
+#pauseButton, #resumeButton { background: #d9894a; box-shadow: 0 4px 0 #b56a32; }
+#restartButton, #againButton { background: #4f9e3a; box-shadow: 0 4px 0 #3a7529; }
+#speedButton { background: #5a8fbe; box-shadow: 0 4px 0 #3f6d94; }
+
+.stage {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #c4dc98;
+  box-shadow: var(--shadow);
+  background: #a6d47c;
+}
+
+#game { display: block; width: 100%; aspect-ratio: 9 / 5; min-height: 240px; background: #a6d47c; }
+#game canvas { display: block; width: 100%; height: 100%; cursor: pointer; }
+
+.sheet {
+  position: absolute; inset: auto 16px 16px 16px; max-width: 420px;
+  padding: 16px 18px 14px; border-radius: 22px;
+  background: rgba(244, 255, 232, 0.96);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(40, 70, 20, 0.16);
+}
+.sheet.hidden, .hidden { display: none; }
+.kicker { margin: 0; color: var(--leaf); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; }
+.sheet h2 { margin: 4px 0 8px; font-size: 1.45rem; }
+.sheet p { font-weight: 800; color: var(--muted); }
+
+.dock { display: grid; gap: 8px; }
+.goal-line {
+  margin: 0; padding: 8px 12px; border-radius: 14px;
+  background: #fff4d8; color: #8a5a3c; font-weight: 800;
+}
+.build-menu {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 6px;
+}
+.tool-card {
+  display: grid; justify-items: center; gap: 2px; min-height: 76px;
+  border: 1px solid var(--line); border-radius: 16px; padding: 8px 4px;
+  background: #fffaf4; color: var(--ink); font-weight: 900; font-size: 0.72rem; cursor: pointer;
+}
+.tool-card small { color: var(--muted); font-weight: 800; }
+.tool-card.active { border-color: var(--leaf); background: #e8f8d8; box-shadow: 0 0 0 3px rgba(79, 158, 58, 0.18); }
+.tool-card:disabled { opacity: 0.35; cursor: default; }
+.glyph { width: 22px; height: 22px; border-radius: 50%; }
+.glyph.sunbloom { background: radial-gradient(circle at 35% 35%, #fff6b0, #ffc53a 55%, #f0a010); }
+.glyph.podling { background: radial-gradient(circle at 35% 35%, #d8ffb0, #5bbb46); }
+.glyph.twinpod { background: radial-gradient(circle at 30% 30%, #e8ffc8, #4aa83c); }
+.glyph.frostpod { background: radial-gradient(circle at 35% 35%, #fff, #6ec4f5); }
+.glyph.gourd { background: radial-gradient(circle at 35% 35%, #ffe7bf, #f2a12a); }
+.glyph.snapleaf { background: radial-gradient(circle at 35% 35%, #d8ffb0, #67c14a); }
+.glyph.trilane { background: linear-gradient(90deg, #4f9e3a, #8ad45a, #4f9e3a); }
+.glyph.emberpod { background: radial-gradient(circle at 35% 35%, #ffe08a, #ff6a2a); }
+.glyph.needle { background: radial-gradient(circle at 35% 35%, #e8ffc8, #3d8f4a); }
+
+button:focus-visible { outline: 3px solid #3d7a28; outline-offset: 3px; }
+
+@media (max-width: 880px) {
+  .hud { flex-wrap: wrap; }
+  .hud-actions { width: 100%; }
+  #pauseButton, #restartButton, #speedButton { flex: 1; }
+  .build-menu { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}

@@ -35,9 +35,9 @@ jobs:
     needs: provision
     permissions:
       contents: write
-    uses: quiet-build/.github/.github/workflows/deploy-arcade-component.yml@8286c17efa989220f88548ffb901f742e3302f3e
+    uses: quiet-build/.github/.github/workflows/deploy-arcade-component.yml@c053a5178d7e53ab36ec89aff021ad8ef2d0fd0d
     with:
-      support-sha: 8286c17efa989220f88548ffb901f742e3302f3e
+      support-sha: c053a5178d7e53ab36ec89aff021ad8ef2d0fd0d
       cloudflare-project-name: sprout-lane
       prebuild-command: "pnpm test:rules && node --test tests/redirect.test.mjs"
       postbuild-command: "pnpm exec playwright install --with-deps webkit && pnpm exec playwright test --config playwright.component.config.js && pnpm exec playwright test --config playwright.config.js"
